@@ -89,12 +89,17 @@ function mac_ai_generate_answer()
     $api_key = sanitize_text_field($_POST['api_key']);
 
     // Gemini API Endpoint
-    $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$api_key"; // Replace with the correct API endpoint
+    $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$api_key";
 
-    // Request payload
+    // Request payload, formatting based on the cURL provided
     $request_payload = json_encode([
-        'prompt' => $question,
-        'max_tokens' => 100,
+        'contents' => [
+            [
+                'parts' => [
+                    ['text' => $question] // The question will be sent as the text part
+                ]
+            ]
+        ]
     ]);
 
     // Initialize cURL
@@ -102,24 +107,26 @@ function mac_ai_generate_answer()
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
-        "Authorization: Bearer $api_key",
     ]);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $request_payload);
 
-    // Execute API request
+    // Execute the cURL request
     $response = curl_exec($curl);
     $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
     curl_close($curl);
 
-    // Handle API response
+    // Handle the API response
     if ($http_code === 200 && $response) {
         $data = json_decode($response, true);
-        if (isset($data['response'])) {
-            wp_send_json_success(['response' => $data['response']]);
+
+        // Check if the response has the generated content
+        if (isset($data['contents'][0]['parts'][0]['text'])) {
+            $generated_answer = $data['contents'][0]['parts'][0]['text'];
+            wp_send_json_success(['response' => $generated_answer]);
         } else {
-            wp_send_json_error(['error' => 'Invalid API response format.']);
+            wp_send_json_error(['error' => 'Invalid response format from API.']);
         }
     } else {
         wp_send_json_error(['error' => 'Failed to fetch AI response.']);
