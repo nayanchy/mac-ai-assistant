@@ -1,0 +1,91 @@
+/* Plugin: Mac-AI-Assistant
+   File: style.css
+   Description: Styles for the Mac AI Assistant plugin
+*/
+
+/* General form styling */
+.mac-ai-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.mac-ai-form-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.mac-ai-form-container label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.mac-ai-form-container input[type="text"],
+.mac-ai-form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.mac-ai-form-container button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0073aa;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mac-ai-form-container button:hover {
+  background-color: #005a8c;
+}
+
+/* Loader for button */
+.mac-ai-loading {
+  display: none;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.mac-ai-loading img {
+  width: 30px;
+  height: 30px;
+}
+/* Button container */
+.mac-ai-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+/* Individual buttons */
+.mac-ai-buttons button {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0073aa;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mac-ai-buttons button:hover {
+  background-color: #005a8c;
+}
